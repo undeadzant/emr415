@@ -26,6 +26,7 @@ app.post('/emr', (req, res) => {
     res.sendStatus(200)
 })
 
-var server = app.listen(3000, () => {
-    console.log('server is listening on port', server.address().port)
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
