@@ -1,0 +1,52 @@
+<!doctype html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Submit EMR</h1>
+        <br>
+        <input id="name" class="form-control" placeholder="Name">
+        <br>
+        <textarea id="message" class="form-control" placeholder="Message"></textarea>
+        <br>
+        <button id="send" class="btn btn-success">Submit</button>
+    </div>
+
+    <div id="emrecords">
+
+    </div>
+</div>
+<script>
+    $(() => {
+        $("#send").click(()=>{
+           var message = { name: $("#name").val(), message: $("#message").val()}
+           postEMR(message)
+        })
+        getEMR()        
+    })
+
+    function addMessages(message){
+        $("#emrecords").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
+    }
+
+    function getEMR(){
+        $.get('http://localhost:3000/emr', (data) => {
+            data.forEach(addMessages);
+        })
+    }
+
+    function getemrid(id, callback){
+        $.get('http://localhost:3000/emr/:id', (data) => {
+            data.forEach(addMessages);
+        })
+    }
+
+    function postEMR(message) {
+        $.post('http://localhost:3000/emr', message)
+        
+    }
+</script>
