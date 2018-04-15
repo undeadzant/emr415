@@ -34,19 +34,19 @@
     }
 
     function getEMR(){
-        $.get('http://localhost:3000/emr', (data) => {
+        $.get('https://vast-garden-25365.herokuapp.com/emr', (data) => {
             data.forEach(addMessages);
         })
     }
 
     function getemrid(id, callback){
-        $.get('http://localhost:3000/emr/:id', (data) => {
+        $.get('https://vast-garden-25365.herokuapp.com/emr/:id', (data) => {
             data.forEach(addMessages);
         })
     }
 
     function postEMR(message) {
-        $.post('http://localhost:3000/emr', message)
+        $.post('https://vast-garden-25365.herokuapp.com/emr', message)
         
     }
 </script>
